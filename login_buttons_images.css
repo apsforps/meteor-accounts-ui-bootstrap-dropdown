@@ -5,6 +5,10 @@
 }
 
 #login-buttons-image-facebook {
+    height: 16px;
+    width: 16px;
+    margin-top: 2px;
+    margin-right: 6px;
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAq0lEQVQ4jWP8//8/AyWAhYGBgcEmauYZBgYGYxL1nj2yLN2ECcohVTNcDwsxKlXlhRm6yzwZRAS5GRgYGBhsombC5ZhwaUIGyJrRAVEuwGYzSS7AB/C64MiydKx8ZJfgNeDN+68MDAwIL8D4RLsgIHsJis0wPjKgOAyoE4hcnGwMGkpiBBUbacvA2TfuvaKiC759/3X23NUnOPMDtgTEwMBwloGBgYGR0uwMAGOPLJS9mkQHAAAAAElFTkSuQmCC);
 }
 
@@ -26,4 +30,18 @@
 #forgot-password-link {
 	display:block;
 	padding-top:8px;
+}
+
+hr.or {
+	text-align: center;
+	padding: 0;
+}
+
+hr.or:after {
+	content: "or";
+	position: relative;
+	display: inline-block;
+	background: white;
+	top: -12px;
+	padding: 0 16px;
 }
