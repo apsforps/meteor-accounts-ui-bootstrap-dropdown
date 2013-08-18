@@ -459,6 +459,7 @@ var changePassword = function () {
   if (!matchPasswordAgainIfPresent())
     return;
 
+<<<<<<< HEAD
   Accounts.changePassword(oldPassword, password, function (error) {
     if (error) {
        loginButtonsSession.errorMessage(error.reason || "Unknown error");
@@ -472,6 +473,21 @@ var changePassword = function () {
       // loginButtonsSession.set('inChangePasswordFlow', false);
       // loginButtonsSession.set('inMessageOnlyFlow', true);
       // loginButtonsSession.infoMessage("Password changed");
+=======
+    var email = trimmedElementValueById("forgot-password-email");
+    if (email.indexOf('@') !== -1) {
+      Accounts.forgotPassword({email: email}, function (error) {
+        if (error)
+          loginButtonsSession.errorMessage(error.reason || "Unknown error");
+          //loginButtonsSession.set('errorMessage', (error.reason || "Unknown error"));
+        else
+          //loginButtonsSession.set('infoMessage', "Email sent");
+          loginButtonsSession.infoMessage("Email sent");
+      });
+    } else {
+      loginButtonsSession.infoMessage("Email sent");
+      //loginButtonsSession.set('infoMessage', "Email sent");
+>>>>>>> pr/2
     }
   });
 };
