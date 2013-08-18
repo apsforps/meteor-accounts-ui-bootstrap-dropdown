@@ -36,7 +36,6 @@ Meteor.startup(function () {
 // resetPasswordDialog template
 //
 
-<<<<<<< HEAD
 Template._resetPasswordDialog.events({
   'click #login-buttons-reset-password-button': function () {
     resetPassword();
@@ -68,56 +67,10 @@ var resetPassword = function () {
       }
     });
 };
-=======
-  Template._resetPasswordDialog.events({
-    'click #login-buttons-reset-password-button': function () {
-      resetPassword(function(error) {
-        if (!error)
-          $("#reset-password-modal").modal("hide");
-      });
-    },
-    'keypress #reset-password-new-password': function (event) {
-      if (event.keyCode === 13)
-        resetPassword();
-    },
-    'click #login-buttons-cancel-reset-password': function () {
-      loginButtonsSession.set('resetPasswordToken', null);
-      Accounts._enableAutoLogin();
-    }
-  });
-
-  var resetPassword = function (callback) {
-    if (!callback) { callback = function() {} }
-
-    loginButtonsSession.resetMessages();
-    var newPassword = document.getElementById('reset-password-new-password').value;
-    if (!Accounts._loginButtons.validatePassword(newPassword)) {
-      callback(Session.get("Meteor.loginButtons.errorMessage"));
-      return;
-    }
-
-    Accounts.resetPassword(
-      loginButtonsSession.get('resetPasswordToken'), newPassword,
-      function (error) {
-        if (error) {
-          loginButtonsSession.errorMessage(error.reason || "Unknown error");
-          callback(error.reason || "Unknown error");
-        } else {
-          loginButtonsSession.set('resetPasswordToken', null);
-          Accounts._enableAutoLogin();
-          callback();
-        }
-      });
-  };
->>>>>>> pr/2
 
 Template._resetPasswordDialog.inResetPasswordFlow = function () {
   return loginButtonsSession.get('resetPasswordToken');
 };
-
-  Template._resetPasswordDialog.rendered = function () {
-    $("#reset-password-modal").modal("show");
-  };
 
 
 //
