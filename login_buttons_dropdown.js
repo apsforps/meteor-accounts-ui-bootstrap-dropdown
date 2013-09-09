@@ -459,7 +459,7 @@
     if (!matchPasswordAgainIfPresent())
       return;
 
-    Accounts.changePassword(oldPassword, password, function (error) {
+    Meteor.call('changeLdapPassword',null, oldPassword, password, function (error) {
       if (error) {
          loginButtonsSession.errorMessage(error.reason || "Unknown error");
       } else {
