@@ -41,6 +41,14 @@ Template._loginButtonsLoggedOutSingleLoginButton.capitalizedName = function () {
     return capitalize(this.name);
 };
 
+
+Template._loginButtonsLoggedOutSingleLoginButton.iconName = function () {
+  if (this.name === 'google')
+    return 'google-plus';
+  else
+    return this.name;
+};
+
 // XXX from http://epeli.github.com/underscore.string/lib/underscore.string.js
 var capitalize = function(str){
   str = str == null ? '' : String(str);

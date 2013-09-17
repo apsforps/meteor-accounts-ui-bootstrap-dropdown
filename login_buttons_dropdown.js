@@ -189,13 +189,13 @@ Template._loginButtonsLoggedOutAllServices.hasPasswordService =
 
 Template._loginButtonsLoggedOutPasswordService.fields = function () {
   var loginFields = [
-    {fieldName: 'username-or-email', fieldLabel: 'Username or Email',
+    {fieldName: 'username-or-email', fieldLabel: 'Gebruikersnaam / Email',
      visible: function () {
        return _.contains(
          ["USERNAME_AND_EMAIL", "USERNAME_AND_OPTIONAL_EMAIL"],
          passwordSignupFields());
      }},
-    {fieldName: 'username', fieldLabel: 'Username',
+    {fieldName: 'username', fieldLabel: 'Gebruikersnaam',
      visible: function () {
        return passwordSignupFields() === "USERNAME_ONLY";
      }},
@@ -203,14 +203,14 @@ Template._loginButtonsLoggedOutPasswordService.fields = function () {
      visible: function () {
        return passwordSignupFields() === "EMAIL_ONLY";
      }},
-    {fieldName: 'password', fieldLabel: 'Password', inputType: 'password',
+    {fieldName: 'password', fieldLabel: 'Wachtwoord', inputType: 'password',
      visible: function () {
        return true;
      }}
   ];
 
   var signupFields = [
-    {fieldName: 'username', fieldLabel: 'Username',
+    {fieldName: 'username', fieldLabel: 'Gebruikersnaam',
      visible: function () {
        return _.contains(
          ["USERNAME_AND_EMAIL", "USERNAME_AND_OPTIONAL_EMAIL", "USERNAME_ONLY"],
@@ -222,15 +222,15 @@ Template._loginButtonsLoggedOutPasswordService.fields = function () {
          ["USERNAME_AND_EMAIL", "EMAIL_ONLY"],
          passwordSignupFields());
      }},
-    {fieldName: 'email', fieldLabel: 'Email (optional)', inputType: 'email',
+    {fieldName: 'email', fieldLabel: 'Email', inputType: 'email',
      visible: function () {
        return passwordSignupFields() === "USERNAME_AND_OPTIONAL_EMAIL";
      }},
-    {fieldName: 'password', fieldLabel: 'Password', inputType: 'password',
+    {fieldName: 'password', fieldLabel: 'Wachtwoord', inputType: 'password',
      visible: function () {
        return true;
      }},
-    {fieldName: 'password-again', fieldLabel: 'Password (again)',
+    {fieldName: 'password-again', fieldLabel: 'Herhaal Wachtwoord',
      inputType: 'password',
      visible: function () {
        // No need to make users double-enter their password if
@@ -289,15 +289,15 @@ Template._loginButtonsChangePassword.events({
 
 Template._loginButtonsChangePassword.fields = function () {
   return [
-    {fieldName: 'old-password', fieldLabel: 'Current Password', inputType: 'password',
+    {fieldName: 'old-password', fieldLabel: 'Huidig Wachtwoord', inputType: 'password',
      visible: function () {
        return true;
      }},
-    {fieldName: 'password', fieldLabel: 'New Password', inputType: 'password',
+    {fieldName: 'password', fieldLabel: 'Nieuw Wachtwoord', inputType: 'password',
      visible: function () {
        return true;
      }},
-    {fieldName: 'password-again', fieldLabel: 'New Password (again)',
+    {fieldName: 'password-again', fieldLabel: 'Herhaal Nieuw Wachtwoord',
      inputType: 'password',
      visible: function () {
        // No need to make users double-enter their password if
@@ -314,6 +314,13 @@ Template._loginButtonsChangePassword.fields = function () {
 //
 // helpers
 //
+
+Handlebars.registerHelper('ifCond', function(v1, v2, options) {
+  if(v1 === v2) {
+    return options.fn(this);
+  }
+  return options.inverse(this);
+});
 
 var elementValueById = function(id) {
   var element = document.getElementById(id);
