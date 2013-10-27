@@ -2,9 +2,17 @@
 <!-- LOGGED IN -->
 <!--           -->
 <template name="_loginButtonsLoggedInDropdown">
+<<<<<<< HEAD
+  <div class="nav-collapse collapse">
+    <ul class="nav pull-right">
+      <li id="login-dropdown-list" class="dropdown">
+        <a class="dropdown-toggle" href="#" data-toggle="dropdown">{{displayName}}<strong class="caret"></strong></a>
+        <div class="dropdown-menu" style="padding: 20px; padding-bottom: 20px;">   
+=======
       <li class="dropdown" id="login-dropdown-list">
         <a class="dropdown-toggle" href="#" data-toggle="dropdown">{{displayName}} <b class="caret"></b></a>
         <div class="dropdown-menu login-dropdown">   
+>>>>>>> 536c5b5f1e044d9b27698019febd5bf38fcd52aa
           {{#if inMessageOnlyFlow}}
             {{> _loginButtonsMessages}}
           {{else}}
@@ -16,8 +24,6 @@
           {{/if}}
         </div>
       </li>
-    </ul>
-  </div>
 </template>
 
 <template name="_loginButtonsLoggedInDropdownActions">
@@ -31,16 +37,12 @@
 <!-- LOGGED OUT -->
 <!--            -->
 <template name="_loginButtonsLoggedOutDropdown">
-  <div class="nav-collapse collapse">
-    <ul class="nav pull-right">
       <li id="login-dropdown-list" class="dropdown">
         <a class="dropdown-toggle" href="#" data-toggle="dropdown">Inloggen <b class="caret"></b></a>
         <div class="dropdown-menu login-dropdown">   
           {{> _loginButtonsLoggedOutAllServices}}
         </div>
       </li>
-    </ul>
-  </div>
 </template>
 
 <template name="_loginButtonsLoggedOutAllServices">
@@ -60,7 +62,12 @@
 </template>
 
 <template name="_loginButtonsLoggedOutPasswordServiceSeparator">
+<<<<<<< HEAD
+  <div class="or text-center">
+    <hr class="or">
+=======
   <div class="or">
+>>>>>>> 536c5b5f1e044d9b27698019febd5bf38fcd52aa
   </div>
 </template>
 

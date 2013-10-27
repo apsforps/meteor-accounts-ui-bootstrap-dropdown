@@ -1,7 +1,11 @@
 <template name="_loginButtonsLoggedOutSingleLoginButton">
-  <div class="login-text-and-button">
+  <div class="btn login-text-and-button">
     <div class="login-button single-login-button {{#unless configured}}configure-button{{/unless}}"
          id="login-buttons-{{name}}">
+<<<<<<< HEAD
+      <div class="login-image pull-left" id="login-buttons-image-{{name}}"></div>
+=======
+>>>>>>> 536c5b5f1e044d9b27698019febd5bf38fcd52aa
       {{#if configured}}
         <span class="text-besides-image sign-in-text-{{name}}"><i class="fa fa-{{iconName}}"></i> Inloggen via {{capitalizedName}}</span>
       {{else}}
