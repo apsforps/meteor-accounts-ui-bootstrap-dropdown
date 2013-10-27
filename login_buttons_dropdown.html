@@ -16,8 +16,6 @@
           {{/if}}
         </div>
       </li>
-    </ul>
-  </div>
 </template>
 
 <template name="_loginButtonsLoggedInDropdownActions">
@@ -31,16 +29,12 @@
 <!-- LOGGED OUT -->
 <!--            -->
 <template name="_loginButtonsLoggedOutDropdown">
-  <div class="nav-collapse collapse">
-    <ul class="nav pull-right">
       <li id="login-dropdown-list" class="dropdown">
         <a class="dropdown-toggle" href="#" data-toggle="dropdown">Inloggen <b class="caret"></b></a>
         <div class="dropdown-menu login-dropdown">   
           {{> _loginButtonsLoggedOutAllServices}}
         </div>
       </li>
-    </ul>
-  </div>
 </template>
 
 <template name="_loginButtonsLoggedOutAllServices">

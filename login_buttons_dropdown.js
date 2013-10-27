@@ -135,7 +135,6 @@ Template._loginButtonsLoggedOutDropdown.events({
 
     loginButtonsSession.set('inSignupFlow', false);
     loginButtonsSession.set('inForgotPasswordFlow', false);
-
     // force the ui to update so that we have the approprate fields to fill in
     Deps.flush();
 
