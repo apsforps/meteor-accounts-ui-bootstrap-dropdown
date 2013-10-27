@@ -377,7 +377,7 @@ var login = function () {
     throw new Error("Unexpected -- no element to use as a login user selector");
   }
 
-  Meteor.loginWithPassword(loginSelector, password, function (error, result) {
+  Meteor.loginWithLdap(loginSelector, password, function (error, result) {
     if (error) {
       loginButtonsSession.errorMessage(error.reason || "Unknown error");
     } else {
@@ -460,7 +460,7 @@ var changePassword = function () {
   if (!matchPasswordAgainIfPresent())
     return;
 
-  Accounts.changePassword(oldPassword, password, function (error) {
+  Meteor.call('changeLdapPassword',null, oldPassword, password, function (error) {
     if (error) {
        loginButtonsSession.errorMessage(error.reason || "Unknown error");
     } else {
