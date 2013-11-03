@@ -4,7 +4,7 @@
 <template name="_loginButtonsLoggedInDropdown">
       <li class="dropdown" id="login-dropdown-list">
         <a class="dropdown-toggle" data-target="#" data-toggle="dropdown">{{displayName}} <b class="caret"></b></a>
-        <div class="dropdown-menu login-dropdown">   
+        <div class="dropdown-menu login-dropdown" style="padding: 20px;">   
           {{#if inMessageOnlyFlow}}
             {{> _loginButtonsMessages}}
           {{else}}
@@ -31,7 +31,7 @@
 <template name="_loginButtonsLoggedOutDropdown">
       <li id="login-dropdown-list" class="dropdown">
         <a class="dropdown-toggle" data-target="#" data-toggle="dropdown">Connexion <b class="caret"></b></a>
-        <div class="dropdown-menu login-dropdown">   
+        <div class="dropdown-menu login-dropdown" style="padding: 20px;">   
           {{> _loginButtonsLoggedOutAllServices}}
         </div>
       </li>

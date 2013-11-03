@@ -189,13 +189,13 @@ Template._loginButtonsLoggedOutAllServices.hasPasswordService =
 
 Template._loginButtonsLoggedOutPasswordService.fields = function () {
   var loginFields = [
-    {fieldName: 'username-or-email', fieldLabel: 'Gebruikersnaam / Email',
+    {fieldName: 'username-or-email', fieldLabel: 'Login',
      visible: function () {
        return _.contains(
          ["USERNAME_AND_EMAIL", "USERNAME_AND_OPTIONAL_EMAIL"],
          passwordSignupFields());
      }},
-    {fieldName: 'username', fieldLabel: 'Gebruikersnaam',
+    {fieldName: 'username', fieldLabel: 'Login',
      visible: function () {
        return passwordSignupFields() === "USERNAME_ONLY";
      }},
@@ -203,14 +203,14 @@ Template._loginButtonsLoggedOutPasswordService.fields = function () {
      visible: function () {
        return passwordSignupFields() === "EMAIL_ONLY";
      }},
-    {fieldName: 'password', fieldLabel: 'Wachtwoord', inputType: 'password',
+    {fieldName: 'password', fieldLabel: 'Password', inputType: 'password',
      visible: function () {
        return true;
      }}
   ];
 
   var signupFields = [
-    {fieldName: 'username', fieldLabel: 'Gebruikersnaam',
+    {fieldName: 'username', fieldLabel: 'Login',
      visible: function () {
        return _.contains(
          ["USERNAME_AND_EMAIL", "USERNAME_AND_OPTIONAL_EMAIL", "USERNAME_ONLY"],
@@ -226,11 +226,11 @@ Template._loginButtonsLoggedOutPasswordService.fields = function () {
      visible: function () {
        return passwordSignupFields() === "USERNAME_AND_OPTIONAL_EMAIL";
      }},
-    {fieldName: 'password', fieldLabel: 'Wachtwoord', inputType: 'password',
+    {fieldName: 'password', fieldLabel: 'Password', inputType: 'password',
      visible: function () {
        return true;
      }},
-    {fieldName: 'password-again', fieldLabel: 'Herhaal Wachtwoord',
+    {fieldName: 'password-again', fieldLabel: 'Réintroduire le password',
      inputType: 'password',
      visible: function () {
        // No need to make users double-enter their password if
@@ -289,15 +289,15 @@ Template._loginButtonsChangePassword.events({
 
 Template._loginButtonsChangePassword.fields = function () {
   return [
-    {fieldName: 'old-password', fieldLabel: 'Huidig Wachtwoord', inputType: 'password',
+    {fieldName: 'old-password', fieldLabel: 'Ancien Password', inputType: 'password',
      visible: function () {
        return true;
      }},
-    {fieldName: 'password', fieldLabel: 'Nieuw Wachtwoord', inputType: 'password',
+    {fieldName: 'password', fieldLabel: 'Nouveau Password', inputType: 'password',
      visible: function () {
        return true;
      }},
-    {fieldName: 'password-again', fieldLabel: 'Herhaal Nieuw Wachtwoord',
+    {fieldName: 'password-again', fieldLabel: 'Nouveau Password (encore)',
      inputType: 'password',
      visible: function () {
        // No need to make users double-enter their password if
@@ -438,10 +438,10 @@ var forgotPassword = function () {
       if (error)
         loginButtonsSession.errorMessage(error.reason || "Unknown error");
       else
-        loginButtonsSession.infoMessage("Email sent");
+        loginButtonsSession.infoMessage("Email envoyé");
     });
   } else {
-    loginButtonsSession.infoMessage("Email sent");
+    loginButtonsSession.infoMessage("Email envoyé");
   }
 };
 
@@ -463,7 +463,7 @@ var changePassword = function () {
     if (error) {
        loginButtonsSession.errorMessage(error.reason || "Unknown error");
     } else {
-      loginButtonsSession.infoMessage("Password changed");
+      loginButtonsSession.infoMessage("Password changé");
 
       // wait 3 seconds, then expire the msg
       Meteor.setTimeout(function() {
@@ -483,7 +483,7 @@ var matchPasswordAgainIfPresent = function () {
     // notably not trimmed. a password could (?) start or end with a space
     var password = elementValueById('login-password');
     if (password !== passwordAgain) {
-      loginButtonsSession.errorMessage("Passwords don't match");
+      loginButtonsSession.errorMessage("Les passwords ne correspondent pas");
       return false;
     }
   }
