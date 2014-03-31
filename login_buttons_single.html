@@ -1,14 +1,16 @@
+<!-- vim:set ft=handlebars ts=2 sw=2: -->
 <template name="_loginButtonsLoggedOutSingleLoginButton">
-  <div class="login-text-and-button">
-    <div class="login-button single-login-button {{#unless configured}}configure-button{{/unless}}"
-         id="login-buttons-{{name}}">
+
+  <li>
+    <a>
       {{#if configured}}
-        <span class="text-besides-image sign-in-text-{{name}}"><i class="fa fa-{{iconName}}"></i> Inloggen via {{capitalizedName}}</span>
+      <button class="login-button btn{{#if configured}} btn-info{{else}} configure-button btn-danger{{/if}}">Sign in with {{capitalizedName}}</button>
       {{else}}
-        <span class="text-besides-image configure-text-{{name}}"><i class="fa fa-{{iconName}}"></i> Configureer {{capitalizedName}}</span>
+      <button class="login-button btn{{#if configured}} btn-info{{else}} configure-button btn-danger{{/if}}">Configure {{capitalizedName}} Login</button>
+
       {{/if}}
-    </div>
-  </div>
+    </a>
+  </li>
 </template>
 
 <template name="_loginButtonsLoggingInSingleLoginButton">
@@ -18,10 +20,7 @@
 </template>
 
 <template name="_loginButtonsLoggedInSingleLogoutButton">
-  <div class="login-text-and-button">
-    <div class="login-display-name">
-      {{displayName}}
-    </div>
-    <div class="login-button single-login-button" id="login-buttons-logout">Sign Out</div>
-  </div>
+  <li>
+    <a href="#" id="login-buttons-logout">{{displayName}} Sign Out</a>
+  </li>
 </template>

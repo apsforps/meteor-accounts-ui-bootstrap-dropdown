@@ -32,9 +32,15 @@ Meteor.startup(function () {
 });
 
 
-//
-// resetPasswordDialog template
-//
+
+  //
+  // resetPasswordDialog template
+  //
+  Template._resetPasswordDialog.rendered = function() {
+    var $modal = $(this.find('#login-buttons-reset-password-modal'));
+    $modal.modal();
+  }
+
 
 Template._resetPasswordDialog.events({
   'click #login-buttons-reset-password-button': function () {
@@ -43,30 +49,38 @@ Template._resetPasswordDialog.events({
   'keypress #reset-password-new-password': function (event) {
     if (event.keyCode === 13)
       resetPassword();
-  },
-  'click #login-buttons-cancel-reset-password': function () {
-    loginButtonsSession.set('resetPasswordToken', null);
-    Accounts._enableAutoLogin();
-  }
-});
 
-var resetPassword = function () {
-  loginButtonsSession.resetMessages();
-  var newPassword = document.getElementById('reset-password-new-password').value;
-  if (!validatePassword(newPassword))
-    return;
+    },
+    'keypress #reset-password-new-password': function (event) {
+      if (event.keyCode === 13)
+        resetPassword();
+    },
+    'click #login-buttons-cancel-reset-password': function () {
+      loginButtonsSession.set('resetPasswordToken', null);
+      Accounts._enableAutoLogin();
+      $('#login-buttons-reset-password-modal').modal("hide");
+    }
+  });
 
-  Accounts.resetPassword(
-    loginButtonsSession.get('resetPasswordToken'), newPassword,
-    function (error) {
-      if (error) {
-        loginButtonsSession.errorMessage(error.reason || "Unknown error");
-      } else {
-        loginButtonsSession.set('resetPasswordToken', null);
-        Accounts._enableAutoLogin();
-      }
-    });
-};
+  var resetPassword = function () {
+    loginButtonsSession.resetMessages();
+    var newPassword = document.getElementById('reset-password-new-password').value;
+    if (!Accounts._loginButtons.validatePassword(newPassword))
+      return;
+
+    Accounts.resetPassword(
+      loginButtonsSession.get('resetPasswordToken'), newPassword,
+      function (error) {
+        if (error) {
+          loginButtonsSession.errorMessage(error.reason || "Unknown error");
+        } else {
+          loginButtonsSession.set('resetPasswordToken', null);
+          Accounts._enableAutoLogin();
+          $('#login-buttons-reset-password-modal').modal("hide");
+        }
+      });
+  };
+
 
 Template._resetPasswordDialog.inResetPasswordFlow = function () {
   return loginButtonsSession.get('resetPasswordToken');
@@ -84,30 +98,43 @@ Template._enrollAccountDialog.events({
   'keypress #enroll-account-password': function (event) {
     if (event.keyCode === 13)
       enrollAccount();
-  },
-  'click #login-buttons-cancel-enroll-account': function () {
-    loginButtonsSession.set('enrollAccountToken', null);
-    Accounts._enableAutoLogin();
-  }
-});
 
-var enrollAccount = function () {
-  loginButtonsSession.resetMessages();
-  var password = document.getElementById('enroll-account-password').value;
-  if (!validatePassword(password))
-    return;
+    },
+    'keypress #enroll-account-password': function (event) {
+      if (event.keyCode === 13)
+        enrollAccount();
+    },
+    'click #login-buttons-cancel-enroll-account-button': function () {
+      loginButtonsSession.set('enrollAccountToken', null);
+      Accounts._enableAutoLogin();
+      $modal.modal("hide");
+    }
+  });
 
-  Accounts.resetPassword(
-    loginButtonsSession.get('enrollAccountToken'), password,
-    function (error) {
-      if (error) {
-        loginButtonsSession.errorMessage(error.reason || "Unknown error");
-      } else {
-        loginButtonsSession.set('enrollAccountToken', null);
-        Accounts._enableAutoLogin();
-      }
-    });
-};
+  Template._enrollAccountDialog.rendered = function() {
+    $modal = $(this.find('#login-buttons-enroll-account-modal'));
+    $modal.modal();
+  };
+
+  var enrollAccount = function () {
+    loginButtonsSession.resetMessages();
+    var password = document.getElementById('enroll-account-password').value;
+    if (!Accounts._loginButtons.validatePassword(password))
+      return;
+
+    Accounts.resetPassword(
+      loginButtonsSession.get('enrollAccountToken'), password,
+      function (error) {
+        if (error) {
+          loginButtonsSession.errorMessage(error.reason || "Unknown error");
+        } else {
+          loginButtonsSession.set('enrollAccountToken', null);
+          Accounts._enableAutoLogin();
+          $modal.modal("hide");
+        }
+      });
+  };
+
 
 Template._enrollAccountDialog.inEnrollAccountFlow = function () {
   return loginButtonsSession.get('enrollAccountToken');
@@ -133,49 +160,66 @@ Template._justVerifiedEmailDialog.visible = function () {
 // loginButtonsMessagesDialog template
 //
 
-Template._loginButtonsMessagesDialog.events({
-  'click #messages-dialog-dismiss-button': function () {
-    loginButtonsSession.resetMessages();
-  }
-});
 
-Template._loginButtonsMessagesDialog.visible = function () {
-  var hasMessage = loginButtonsSession.get('infoMessage') || loginButtonsSession.get('errorMessage');
-  return !dropdown() && hasMessage;
-};
+  // Template._loginButtonsMessagesDialog.rendered = function() {
+  //   var $modal = $(this.find('#configure-login-service-dialog-modal'));
+  //   $modal.modal();
+  // }
+
+  Template._loginButtonsMessagesDialog.events({
+    'click #messages-dialog-dismiss-button': function () {
+      loginButtonsSession.resetMessages();
+    }
+  });
+
+  Template._loginButtonsMessagesDialog.visible = function () {
+    var hasMessage = loginButtonsSession.get('infoMessage') || loginButtonsSession.get('errorMessage');
+    return !Accounts._loginButtons.dropdown() && hasMessage;
+  };
 
 
-//
-// configureLoginServiceDialog template
-//
+  //
+  // configureLoginServiceDialog template
+  //
 
-Template._configureLoginServiceDialog.events({
-  'click .configure-login-service-dismiss-button': function () {
-    loginButtonsSession.set('configureLoginServiceDialogVisible', false);
-  },
-  'click #configure-login-service-dialog-save-configuration': function () {
-    if (loginButtonsSession.get('configureLoginServiceDialogVisible') &&
-        ! loginButtonsSession.get('configureLoginServiceDialogSaveDisabled')) {
-      // Prepare the configuration document for this login service
-      var serviceName = loginButtonsSession.get('configureLoginServiceDialogServiceName');
-      var configuration = {
-        service: serviceName
-      };
-      
-      // Fetch the value of each input field
-      _.each(configurationFields(), function(field) {
-        configuration[field.property] = document.getElementById(
-          'configure-login-service-dialog-' + field.property).value
-          .replace(/^\s*|\s*$/g, ""); // trim;
-      });
+  Template._configureLoginServiceDialog.events({
+    'click .configure-login-service-dismiss-button': function () {
+      loginButtonsSession.set('configureLoginServiceDialogVisible', false);
+      $('#configure-login-service-dialog-modal').modal('hide');
+    },
+    'click #configure-login-service-dialog-save-configuration': function () {
+      if (loginButtonsSession.get('configureLoginServiceDialogVisible') &&
+          ! loginButtonsSession.get('configureLoginServiceDialogSaveDisabled')) {
+        // Prepare the configuration document for this login service
+        var serviceName = loginButtonsSession.get('configureLoginServiceDialogServiceName');
+        var configuration = {
+          service: serviceName
+        };
+        _.each(configurationFields(), function(field) {
+          configuration[field.property] = document.getElementById(
+            'configure-login-service-dialog-' + field.property).value
+            .replace(/^\s*|\s*$/g, ""); // trim;
+        });
 
-      // Configure this login service
-      Meteor.call("configureLoginService", configuration, function (error, result) {
-        if (error)
-          Meteor._debug("Error configuring login service " + serviceName, error);
-        else
-          loginButtonsSession.set('configureLoginServiceDialogVisible', false);
-      });
+        // Configure this login service
+        Meteor.call("configureLoginService", configuration, function (error, result) {
+          if (error)
+            Meteor._debug("Error configuring login service " + serviceName, error);
+          else
+            loginButtonsSession.set('configureLoginServiceDialogVisible', false);
+            $('#configure-login-service-dialog-modal').modal('hide');
+        });
+      }
+    },
+    // IE8 doesn't support the 'input' event, so we'll run this on the keyup as
+    // well. (Keeping the 'input' event means that this also fires when you use
+    // the mouse to change the contents of the field, eg 'Cut' menu item.)
+    'input, keyup input': function (event) {
+      // if the event fired on one of the configuration input fields,
+      // check whether we should enable the 'save configuration' button
+      if (event.target.id.indexOf('configure-login-service-dialog') === 0)
+        updateSaveDisabled();
+
     }
   },
   // IE8 doesn't support the 'input' event, so we'll run this on the keyup as
@@ -217,9 +261,12 @@ Template._configureLoginServiceDialog.configurationFields = function () {
   return configurationFields();
 };
 
-Template._configureLoginServiceDialog.visible = function () {
-  return loginButtonsSession.get('configureLoginServiceDialogVisible');
-};
+
+  Template._configureLoginServiceDialog.configurationSteps = function () {
+    // renders the appropriate template
+    return configureLoginServiceDialogTemplateForService();
+  };
+
 
 Template._configureLoginServiceDialog.configurationSteps = function () {
   // renders the appropriate template
