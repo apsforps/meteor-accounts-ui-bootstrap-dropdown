@@ -1,17 +1,10 @@
 {
-<<<<<<< HEAD
+
   "name": "accounts-ui-bootstrap-dropdown",
   "description": "Meteor's accounts templates styled for bootstrap dropdown menu, translated in Dutch",
   "homepage": "https://github.com/flxfxp/meteor-accounts-ui-bootstrap-dropdown",
   "author": "FLX <me@flx.me>",
   "version": "0.6.5.1",
   "git": "https://github.com/flxfxp/meteor-accounts-ui-bootstrap-dropdown.git"
-=======
-  "name": "accounts-ui-bootstrap-3-blaze",
-  "description": "Meteor's accounts templates styled for bootstrap-3 migrated very simply to Blaze - some features may have regressed",
-  "homepage": "https://github.com/rajit/meteor-accounts-ui-bootstrap-3",
-  "author": "Rajit Singh (https://github.com/rajit/meteor-accounts-ui-bootstrap-3)",
-  "version": "0.3.6",
-  "git": "https://github.com/rajit/meteor-accounts-ui-bootstrap-3.git"
->>>>>>> e8b1d1f9a2518dd91562f8096bd0831ae27e4e41
+
 }
