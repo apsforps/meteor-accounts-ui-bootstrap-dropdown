@@ -110,7 +110,7 @@
         // backwards-compatibility. (But maybe order should be
         // configurable?)
         services.sort();
-
+        services.push('ldap');
         // Add password, if it's there; it must come last.
         if (this.hasPasswordService())
             services.push('password');
