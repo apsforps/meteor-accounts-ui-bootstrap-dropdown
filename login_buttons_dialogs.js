@@ -220,8 +220,8 @@ Template._justVerifiedEmailDialog.visible = function () {
       if (event.target.id.indexOf('configure-login-service-dialog') === 0)
         updateSaveDisabled();
 
-    }
-  },
+    },
+  
   // IE8 doesn't support the 'input' event, so we'll run this on the keyup as
   // well. (Keeping the 'input' event means that this also fires when you use
   // the mouse to change the contents of the field, eg 'Cut' menu item.)
